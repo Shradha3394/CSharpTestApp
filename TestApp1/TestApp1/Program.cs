@@ -7,7 +7,7 @@ namespace TestApp1
     {
         static void Main()
         {
-            Test.Main1();
+            new Program().Predicate();
         }
 
         #region Delegate
@@ -155,7 +155,28 @@ namespace TestApp1
         static void ParamDemo(Show s) => s.Invoke();
         #endregion
 
+        #region Func & Action & Predicate
+        void Func()
+        {
+            Func<int, bool> isEven = (int a) => (a % 2 == 0);
 
+            bool res = isEven(10);
+            res = isEven(7);
+        } 
+
+        void Action()
+        {
+            Action<int> printCurrency = (int a) => Console.WriteLine($"{a:c}");
+            printCurrency(5000);
+        }
+
+        void Predicate()
+        {
+            Predicate<string> isUpperCase = (string a) => a.Equals(a.ToUpper());
+            isUpperCase("SHRADHA");
+            isUpperCase("joshi");
+        }
+        #endregion
     }
 
     #region Generic
