@@ -195,9 +195,9 @@ namespace TestApp1
         Big b1 = new Big();
         // Big b1 = new Small(); - Incorret - A drived class can not hold a base class
 
-        //Covariance : allows to use a derived class where a base class is expected
         public delegate Small covarDel(Big mc);
 
+        #region Covariance : allows to use a derived class where a base class is expected
         static Big Method1(Big bg)
         {
             Console.WriteLine("Method1");
@@ -212,6 +212,21 @@ namespace TestApp1
             Small sm = del(new Big());
             sm.SmallMethod();
         }
+        #endregion
+
+        #region Contravariane is applied to parameters. Parameter of a base class to be assigned to a delegate that expects parameter of a derived class
+        static Small Method2(Small sm)
+        {
+            Console.WriteLine("Method2");
+            return new Small();
+        }
+
+        void Main2()
+        {
+            covarDel del = Method2;
+            Small sm = del(new Big());
+        } 
+        #endregion
     }
 
     #endregion
