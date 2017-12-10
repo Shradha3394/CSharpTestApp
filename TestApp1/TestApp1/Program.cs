@@ -7,7 +7,8 @@ namespace TestApp1
     {
         static void Main()
         {
-            new Program().Predicate();
+            string str = "my name is shradha";
+            Console.WriteLine(str.ToTitleCase());
         }
 
         #region Delegate
@@ -250,5 +251,15 @@ namespace TestApp1
         #endregion
     }
 
+    #endregion
+
+    #region Extension Method
+    public static class StringExtension
+    {
+        public static string ToTitleCase(this string str)
+        {
+            return new System.Globalization.CultureInfo("en-US", false).TextInfo.ToTitleCase(str);
+        }
+    } 
     #endregion
 }
