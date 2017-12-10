@@ -7,8 +7,7 @@ namespace TestApp1
     {
         static void Main()
         {
-            string str = "my name is shradha";
-            Console.WriteLine(str.ToTitleCase());
+            Main3();
         }
 
         #region Delegate
@@ -177,6 +176,24 @@ namespace TestApp1
             isUpperCase("SHRADHA");
             isUpperCase("joshi");
         }
+        #endregion
+
+
+        #region Anonymous type
+        static void Main3()
+        {
+            var type = new
+            {
+                name = "rohit singh",
+            };
+
+            DoSomethig(type);
+        }
+
+        static void DoSomethig(dynamic param)
+        {
+            Console.WriteLine(param.name);
+        } 
         #endregion
     }
 
