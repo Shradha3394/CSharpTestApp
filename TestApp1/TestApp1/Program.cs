@@ -7,7 +7,7 @@ namespace TestApp1
     {
         static void Main()
         {
-            Demo();
+            Demo(out int a);
         }
 
         #region Delegate
@@ -135,11 +135,13 @@ namespace TestApp1
 
         #region Anonymous Method
         delegate void Show();
-        static void Demo()
+        static void Demo(out int a)
         {
             string name = "Rohit";
+            a = 10;
             Show p = delegate ()
             {
+                /// "a" is not accessible - Anonymous method can not access ref or out param
                 Console.WriteLine($"hello {name}");
             };
             p.Invoke();
