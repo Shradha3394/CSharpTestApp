@@ -7,7 +7,7 @@ namespace TestApp1
     {
         static void Main()
         {
-            Demo(out int a);
+            Test.Main1();
         }
 
         #region Delegate
@@ -15,7 +15,7 @@ namespace TestApp1
         {
             MathDel d = Sum;
             Print += printHelperFun;
-            Console.WriteLine(d(5,5));
+            Console.WriteLine(d(5, 5));
             d = Diff;
             Console.WriteLine(d.Method);
         }
@@ -146,7 +146,7 @@ namespace TestApp1
             };
             p.Invoke();
             ParamDemo(p);
-        } 
+        }
 
         /// <summary>
         /// Anonymous method as param
@@ -154,6 +154,8 @@ namespace TestApp1
         /// <param name="s"></param>
         static void ParamDemo(Show s) => s.Invoke();
         #endregion
+
+
     }
 
     #region Generic
@@ -177,5 +179,40 @@ namespace TestApp1
         {
         }
     }
+    #endregion
+
+    #region Covariance and Contravariance
+    class Small { internal void SmallMethod() => Console.WriteLine("small"); }
+
+    class Big : Small { internal void BigMethod() => Console.WriteLine("big"); }
+
+    class Test
+    {
+        // Correct
+        Small s1 = new Small();
+        Small s2 = new Big();
+
+        Big b1 = new Big();
+        // Big b1 = new Small(); - Incorret - A drived class can not hold a base class
+
+        //Covariance : allows to use a derived class where a base class is expected
+        public delegate Small covarDel(Big mc);
+
+        static Big Method1(Big bg)
+        {
+            Console.WriteLine("Method1");
+            bg.BigMethod();
+            bg.SmallMethod();
+            return new Big();
+        }
+        internal static void Main1()
+        {
+            covarDel del = Method1;
+
+            Small sm = del(new Big());
+            sm.SmallMethod();
+        }
+    }
+
     #endregion
 }
