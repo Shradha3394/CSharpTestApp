@@ -137,12 +137,20 @@ namespace TestApp1
         delegate void Show();
         static void Demo()
         {
+            string name = "Rohit";
             Show p = delegate ()
             {
-                Console.WriteLine("hello");
+                Console.WriteLine($"hello {name}");
             };
             p.Invoke();
+            ParamDemo(p);
         } 
+
+        /// <summary>
+        /// Anonymous method as param
+        /// </summary>
+        /// <param name="s"></param>
+        static void ParamDemo(Show s) => s.Invoke();
         #endregion
     }
 
