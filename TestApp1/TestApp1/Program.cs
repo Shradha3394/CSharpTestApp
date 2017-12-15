@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TestApp1
 {
@@ -7,7 +8,8 @@ namespace TestApp1
     {
         static void Main()
         {
-            Main3();
+            List<int> list = new List<int>() { 1, 2, 3 };
+            int ele = list.ElementAtOrDefault(5);
         }
 
         #region Delegate
@@ -158,42 +160,49 @@ namespace TestApp1
         #region Func & Action & Predicate
         void Func()
         {
-            Func<int, bool> isEven = (int a) => (a % 2 == 0);
+            Func<int, bool> isEven = a => (a % 2 == 0);
 
             bool res = isEven(10);
             res = isEven(7);
-        } 
+        }
 
         void Action()
         {
-            Action<int> printCurrency = (int a) => Console.WriteLine($"{a:c}");
+            Action<int> printCurrency = a => Console.WriteLine($"{a:c}");
             printCurrency(5000);
         }
 
         void Predicate()
         {
-            Predicate<string> isUpperCase = (string a) => a.Equals(a.ToUpper());
+            Predicate<string> isUpperCase = a => a.Equals(a.ToUpper());
             isUpperCase("SHRADHA");
             isUpperCase("joshi");
         }
         #endregion
 
-
         #region Anonymous type
-        static void Main3()
+        static string Main3()
         {
-            var type = new
+            try
             {
-                name = "rohit singh",
-            };
+                throw new Exception();
+                var type = new
+                {
+                    name = "rohit singh",
+                };
 
-            DoSomethig(type);
+                DoSomethig(type);
+            }
+            catch (Exception)
+            {
+            }
+            return "";
         }
 
         static void DoSomethig(dynamic param)
         {
             Console.WriteLine(param.name);
-        } 
+        }
         #endregion
     }
 
@@ -264,7 +273,7 @@ namespace TestApp1
         {
             covarDel del = Method2;
             Small sm = del(new Big());
-        } 
+        }
         #endregion
     }
 
@@ -277,6 +286,68 @@ namespace TestApp1
         {
             return new System.Globalization.CultureInfo("en-US", false).TextInfo.ToTitleCase(str);
         }
-    } 
+    }
+    #endregion
+
+    #region LINQ
+    public class Linq
+    {
+        static IList<Student> studentList = new List<Student>() {
+            new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
+            new Student() { StudentID = 2, StudentName = "Steve",  Age = 15 } ,
+            new Student() { StudentID = 3, StudentName = "Bill",  Age = 25 } ,
+            new Student() { StudentID = 4, StudentName = "Ram" , Age = 18 } ,
+            new Student() { StudentID = 5, StudentName = "Ron" , Age = 15 }
+        };
+
+        internal static void Filter()
+        {
+            #region Where
+            var stuList = from s in studentList
+                          where s.Age > 18
+                          select s;
+            stuList = studentList.Where(s => s.Age > 18).ToList();
+            #endregion
+
+            #region OfType
+            List<dynamic> list = new List<dynamic>() { "", 2, true, 4 };
+            var filteredList = list.OfType<int>().ToList();
+            #endregion
+        }
+
+        internal static void Group()
+        {
+            var group = studentList.GroupBy(s => s.Age);
+
+            foreach (var item in group)
+            {
+                int age = item.Key;
+                foreach (var item1 in item)
+                {
+                    Student s = item1;
+                }
+            }
+        }
+
+        internal static void Sorting()
+        {
+            var stuList = from s in studentList
+                          orderby s.Age descending
+                          select s;
+
+            stuList = from s in studentList
+                      orderby s.Age ascending, s.StudentID descending
+                      select s;
+
+            var stuList1 = studentList.OrderBy(s => s.StudentName).ThenByDescending(s =>s.StudentID).ToList<Student>();
+        }
+    }
+
+    internal class Student
+    {
+        public int StudentID { get; set; }
+        public string StudentName { get; set; }
+        public int Age { get; set; }
+    }
     #endregion
 }
