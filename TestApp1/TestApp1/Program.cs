@@ -350,4 +350,16 @@ namespace TestApp1
         public int Age { get; set; }
     }
     #endregion
+    
+    // GroupBy Example
+    //public static MvcHtmlString GetSchoolsList(List<School> schoolList)
+    //{
+    //    var schoolHtml = new StringBuilder();
+    //    var results = schoolList.OrderBy(x => x.SchoolLevelId).GroupBy(x=> x.SchoolLevelId).Select(g => new { Schools = g.Where(x => !string.IsNullOrEmpty(x.SchoolName)).Select(x => x.SchoolName).ToList() });
+    //    foreach (var data in results.ToList())
+    //    {
+    //        schoolHtml.Append($"<p> {string.Join(", ", data.Schools)} </p>");
+    //    }
+    //   return schoolHtml.ToMvcHtmlString();
+    //}
 }
