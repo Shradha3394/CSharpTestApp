@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace TestApp1
 {
@@ -341,6 +342,7 @@ namespace TestApp1
 
             var stuList1 = studentList.OrderBy(s => s.StudentName).ThenByDescending(s =>s.StudentID).ToList<Student>();
         }
+
     }
 
     internal class Student
@@ -362,4 +364,45 @@ namespace TestApp1
     //    }
     //   return schoolHtml.ToMvcHtmlString();
     //}
+    }
+
+    public class Derived : Base
+    {
+        public new void Show()
+        { }
+
+        public new void Display()
+        { }
+    }
+
+    public class Helper
+    {
+        public void Main()
+        {
+            Base b = new Derived();
+            b.Show();
+            b.Display();
+        }
+
+        public static void Equals()
+        {
+            #region == vs Equals
+            string s1 = "aa";
+            string s2 = s1;
+            bool b1 = s1 == s2;
+            bool b2 = s1.Equals(s2);
+            #endregion
+        }
+    }
+
+    public enum PurchaseMethod
+    {
+        None = 0,
+        Cash = 1,
+        Check = 2,
+        CreditCard = 4,
+        All = Cash | Check | CreditCard
+    }
 }
+
+
