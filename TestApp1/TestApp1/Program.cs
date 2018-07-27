@@ -9,10 +9,18 @@ namespace TestApp1
     {
         static void Main()
         {
-            List<int> list = new List<int>() { 1, 2, 3 };
-            int ele = list.ElementAtOrDefault(5);
+
         }
 
+
+        static void SwappingMadeEasyWithTuples()
+        {
+            // Swapping made easy with Tuples
+            int a = 5, b = 6;
+            Console.WriteLine($"a={a}, b={b}");
+            (a, b) = (b, a);
+            Console.WriteLine($"a={a}, b={b}");
+        }
         #region Delegate
         void Delegate()
         {
@@ -375,13 +383,18 @@ namespace TestApp1
         { }
     }
 
+    public class Base
+    {
+
+    }
+
     public class Helper
     {
         public void Main()
         {
             Base b = new Derived();
-            b.Show();
-            b.Display();
+            //b.Show();
+            //b.Display();
         }
 
         public static void Equals()
@@ -403,6 +416,6 @@ namespace TestApp1
         CreditCard = 4,
         All = Cash | Check | CreditCard
     }
-}
+
 
 
